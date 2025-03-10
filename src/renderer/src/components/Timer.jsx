@@ -10,6 +10,9 @@ export default function Timer() {
   const [isPaused, setIsPaused] = useState(false)
   const [isCountingUp, setIsCountingUp] = useState(true)
   const [totalSeconds, setTotalSeconds] = useState(0)
+  const [initialHours, setInitialHours] = useState(0)
+  const [initialMinutes, setInitialMinutes] = useState(0)
+  const [initialSeconds, setInitialSeconds] = useState(0)
 
   useEffect(() => {
     let interval
@@ -43,6 +46,9 @@ export default function Timer() {
   }
 
   const handleStart = () => {
+    setInitialHours(hours)
+    setInitialMinutes(minutes)
+    setInitialSeconds(seconds)
     setIsEditing(false)
     setIsRunning(true)
     setIsPaused(false)
@@ -50,6 +56,15 @@ export default function Timer() {
 
   const handlePause = () => {
     setIsPaused((prev) => !prev)
+  }
+
+  const handleReset = () => {
+    setHours(initialHours)
+    setMinutes(initialMinutes)
+    setSeconds(initialSeconds)
+    setTotalSeconds(initialHours * 3600 + initialMinutes * 60 + initialSeconds)
+    setIsPaused(false)
+    setIsRunning(true)
   }
 
   return (
@@ -85,12 +100,20 @@ export default function Timer() {
           <div className="text-4xl font-mono p-4">
             {formatTime(totalSeconds)}
           </div>
-          <button 
-            onClick={handlePause}
-            className="bg-red-500 text-stone-200 px-6 py-2 rounded-xl text-xl mt-2 hover:bg-red-600"
-          >
-            {isPaused ? 'Reanudar' : 'Pausar'}
-          </button>
+          <div className="space-x-2">
+            <button 
+              onClick={handlePause}
+              className="bg-red-500 text-stone-200 px-6 py-2 rounded-xl text-xl mt-2 hover:bg-red-600"
+            >
+              {isPaused ? 'Reanudar' : 'Pausar'}
+            </button>
+            <button 
+              onClick={handleReset}
+              className="bg-yellow-500 text-stone-200 px-6 py-2 rounded-xl text-xl mt-2 hover:bg-yellow-600"
+            >
+              Reiniciar
+            </button>
+          </div>
         </div>
       )}
     </div>
