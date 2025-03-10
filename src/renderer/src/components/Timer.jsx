@@ -67,6 +67,12 @@ export default function Timer() {
     setIsRunning(true)
   }
 
+  const handleStop = () => {
+    setIsRunning(false)
+    setIsPaused(false)
+    setIsEditing(true)
+  }
+
   return (
     <div>
       {isEditing ? (
@@ -112,6 +118,12 @@ export default function Timer() {
               className="bg-yellow-500 text-stone-200 px-6 py-2 rounded-xl text-xl mt-2 hover:bg-yellow-600"
             >
               Reiniciar
+            </button>
+            <button 
+              onClick={handleStop}
+              className="bg-gray-500 text-stone-200 px-6 py-2 rounded-xl text-xl mt-2 hover:bg-gray-600"
+            >
+              Detener
             </button>
           </div>
         </div>
