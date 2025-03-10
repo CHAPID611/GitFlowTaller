@@ -7,12 +7,13 @@ export default function Timer() {
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const [isCountingUp, setIsCountingUp] = useState(true)
   const [totalSeconds, setTotalSeconds] = useState(0)
 
   useEffect(() => {
     let interval
-    if (isRunning) {
+    if (isRunning && !isPaused) {
       interval = setInterval(() => {
         if (isCountingUp) {
           setTotalSeconds((prev) => prev + 1)
@@ -26,7 +27,7 @@ export default function Timer() {
       }, 1000)
     }
     return () => clearInterval(interval)
-  }, [isRunning, isCountingUp, totalSeconds])
+  }, [isRunning, isPaused, isCountingUp, totalSeconds])
 
   useEffect(() => {
     const total = hours * 3600 + minutes * 60 + seconds
@@ -44,6 +45,11 @@ export default function Timer() {
   const handleStart = () => {
     setIsEditing(false)
     setIsRunning(true)
+    setIsPaused(false)
+  }
+
+  const handlePause = () => {
+    setIsPaused((prev) => !prev)
   }
 
   return (
@@ -75,8 +81,16 @@ export default function Timer() {
           </div>
         </div>
       ) : (
-        <div className="text-4xl font-mono text-center p-4">
-          {formatTime(totalSeconds)}
+        <div className="text-center">
+          <div className="text-4xl font-mono p-4">
+            {formatTime(totalSeconds)}
+          </div>
+          <button 
+            onClick={handlePause}
+            className="bg-red-500 text-stone-200 px-6 py-2 rounded-xl text-xl mt-2 hover:bg-red-600"
+          >
+            {isPaused ? 'Reanudar' : 'Pausar'}
+          </button>
         </div>
       )}
     </div>
