@@ -73,6 +73,11 @@ export default function Timer() {
     setIsEditing(true)
   }
 
+  const handleInputChange = (setValue) => (e) => {
+    const value = e.target.value
+    setValue(value === '' ? '' : parseInt(value))
+  }
+
   return (
     <div>
       {isEditing ? (
@@ -81,17 +86,17 @@ export default function Timer() {
             <InputField
               label="Hours"
               value={hours}
-              onChange={(e) => setHours(parseInt(e.target.value) || 0)}
+              onChange={handleInputChange(setHours)}
             />
             <InputField
               label="Minutes"
               value={minutes}
-              onChange={(e) => setMinutes(parseInt(e.target.value) || 0)}
+              onChange={handleInputChange(setMinutes)}
             />
             <InputField
               label="Seconds"
               value={seconds}
-              onChange={(e) => setSeconds(parseInt(e.target.value) || 0)}
+              onChange={handleInputChange(setSeconds)}
             />
             <button 
               onClick={handleStart}

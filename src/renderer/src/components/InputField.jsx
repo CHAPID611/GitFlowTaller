@@ -2,7 +2,7 @@
 export default function InputField({ label, value, onChange, placeholder }) {
   const handleInputChange = (e) => {
     const inputValue = e.target.value
-    if (/^\d+$/.test(inputValue)) {
+    if (inputValue === '' || /^\d+$/.test(inputValue)) {
       onChange(e)
     }
   }
