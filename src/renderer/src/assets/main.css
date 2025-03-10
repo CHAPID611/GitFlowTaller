@@ -1,0 +1,10 @@
+@import './base.css';
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.topbar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
